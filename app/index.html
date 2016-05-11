@@ -1,0 +1,137 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>Citrix D3 Charts</title>
+    <link rel="shortcut icon" href="http://citrix.com/favicon.ico" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- build:siteCSS sandbox/styles.css -->
+    <!-- endbuild -->
+    <!-- build:siteCSS styles/d3-charts.css -->
+    <link rel="stylesheet" href="styles/directives/ctx-pie-chart.css" type="text/css" />
+    <link rel="stylesheet" href="styles/directives/ctx-spline-chart.css" type="text/css" />
+    <!-- endbuild -->
+</head>
+<body ng-app="cwc.d3">
+    <!--[if lt IE 9]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please upgrade your browser to improve your experience.</p>
+        <ul>
+            <li>Internet Explorer (version 10 and Later)</li>
+            <li>Chrome (version 42 or Later)</li>
+            <li>Safari (version 8 or Later)</li>
+            <li>Firefox (version 37 or Later)</li>
+        </ul>
+    <![endif]-->
+    <div ctx-bar-chart bar-height="20" bar-padding="5" data="[{name: 'Greg', y: 98}, {name: 'Ari', y: 96}, {name: 'Q', y: 44}, {name: 'Loser', y: 48}]"></div>
+    <div ctx-spline-chart config="{
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                series: [{
+                    name: 'Tokyo',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                }]
+            }"></div>
+    <div ctx-spline-chart config="{
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                series: [{
+                    name: 'Tokyo',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                },
+                {
+                    name: 'Beijing',
+                    data: [6.0, 7.9, 7, 13.5, 11.2, 31, 20.2, 26.5, 27.3, 8.3, 3.9, 19.6]
+                }]
+            }"></div>
+    <div ctx-spline-chart config="{
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                series: [{
+                    name: 'Tokyo',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                },
+                {
+                    name: 'Beijing',
+                    data: [6.0, 7.9, 7, 13.5, 11.2, 31, 20.2, 26.5, 27.3, 8.3, 3.9, 19.6]
+                },
+                {
+                    name: 'Nanjing',
+                    data: [9.0, 2.9, 17, 13.5, 22.2, 44, 2.2, 6.5, 37.3, 18.3, 31.9, 16.6]
+                }]
+            }"></div>
+    <div ctx-spline-chart config="{
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Temperature (°C)'
+                    }
+                },
+                series: [{
+                    name: 'Tokyo',
+                    data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+                },
+                {
+                    name: 'Beijing',
+                    data: [6.0, 7.9, 7, 13.5, 11.2, 31, 20.2, 26.5, 27.3, 8.3, 3.9, 19.6]
+                },
+                {
+                    name: 'Nanjing',
+                    data: [9.0, 2.9, 17, 13.5, 22.2, 44, 2.2, 6.5, 37.3, 18.3, 31.9, 16.6]
+                },
+                {
+                    name: 'Shanghai',
+                    data: [69.0, 21.9, 13, 53.5, 42.2, 24, 23.2, 16.5, 3.3, 78.3, 3.9, 6.6]
+                }]
+            }"></div>        
+    <div ctx-pie-chart data="[]"></div>
+    <!-- <div ctx-pie-chart data="[{name: 'FireFox', y: 0}]"></div> -->
+    <div ctx-pie-chart data="[{name: 'FireFox', y: 28}]"></div>
+    <div ctx-pie-chart data="[ {name: 'Sarifi', y: 53}, {name: 'FireFox', y: 28}]"></div>
+    <div ctx-pie-chart data="[{name: 'IE', y: 30}, {name: 'Sarifi', y: 53}, {name: 'FireFox', y: 28}]"></div>
+    <div ctx-pie-chart data="[{name: 'Chrome', y: 10}, {name: 'IE', y: 30}, {name: 'Sarifi', y: 53}, {name: 'FireFox', y: 28}]"></div>
+    <div ctx-pie-chart data="[{name: 'Chrome', y: 90}, {name: 'Chrome', y: 15},  {name: 'IE', y: 30}, {name: 'Sarifi', y: 53}, {name: 'FireFox', y: 28}]"></div>
+    <div ctx-pie-chart data="[{name: 'Chrome', y: 10}, {name: 'Chrome', y: 90}, {name: 'Chrome', y: 15},  {name: 'IE', y: 30}, {name: 'Sarifi', y: 53}, {name: 'FireFox', y: 28}]"></div>
+    <!-- build:siteJS sandbox/bower_components.js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- endbuild -->
+    <!-- build:siteJS scripts/d3-charts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/modules/d3.js"></script>
+    <script src="scripts/directives/ctx-bar-chart.js"></script>
+    <script src="scripts/directives/ctx-pie-chart.js"></script>
+    <script src="scripts/directives/ctx-spline-chart.js"></script>
+    <!-- endbuild -->
+    <!-- build:siteJS sandbox/scripts.js -->
+    <!-- endbuild -->
+</body>
+</html>
