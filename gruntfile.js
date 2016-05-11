@@ -147,11 +147,12 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     '<%= yeoman.dist %>/scripts/d3-charts.js': [
+                        '<%= yeoman.app %>/scripts/app.js',
+                        '<%= yeoman.app %>/scripts/modules/**/*.js',
                         '<%= yeoman.app %>/scripts/directives/**/*.js',
                         '<%= yeoman.app %>/scripts/providers/**/*.js',
                         '<%= yeoman.app %>/scripts/services/**/*.js',
                         '<%= yeoman.app %>/scripts/validators/**/*.js',
-                        '<%= yeoman.app %>/scripts/app.js',
                         '<%= yeoman.dist %>/scripts/d3-charts-templates.js'
                     ]
                 }]
