@@ -11,7 +11,7 @@ function($window, d3) {
           label: '@',
           onClick: '&'
         },
-        link: function(scope, element, attrs) {
+        link: function(scope, element) {
             var margin = scope.config.margin || { left: 20, top: 20, right: 20, bottom: 20 },
                 barHeight = scope.config.barHeight || 80,
                 barPadding = scope.config.barPadding || 5,
@@ -40,17 +40,17 @@ function($window, d3) {
             // }, true);
 
             var sumOfSeries = function (series) {
-                var sum = [];
+                var sum = [], i, j;
 
                 if (!series || series.length === 0) {
                     return;
                 }
 
-                for (var j=0; j<series[0].data.length; j++) {
+                for (j=0; j<series[0].data.length; j++) {
                     sum.push(series[0].data[j]);
                 }
-                for (var i=1; i<series.length; i++) {
-                    for (var j=0; j<series[i].data.length; j++) {
+                for (i=1; i<series.length; i++) {
+                    for (j=0; j<series[i].data.length; j++) {
                         sum[j] += series[i].data[j];
                     }
                 }
@@ -66,6 +66,7 @@ function($window, d3) {
                 svg.selectAll('*').remove();
                 var series = scope.config.series,
                     total = { name: 'Total' },
+                    index, yOffset, 
                     width = d3.select(element[0])[0][0].offsetWidth - margin.left - leftLabelWidth - margin.right,
                     height = scope.config.series[0].data.length * (barHeight + barPadding),
                     color = scope.config.color ? function(c) { return scope.config.color[c%scope.config.color.length]; } : d3.scale.category20(),
@@ -73,12 +74,12 @@ function($window, d3) {
                         .domain([0, maxSumOfSeries(series)+totalBarWidth])
                         .range([0, width]);
 
-                total['data'] = sumOfSeries(series);
+                total.data = sumOfSeries(series);
 
                 svg.attr('height', height);
 
-                for (var index=0; index<series.length; index++) {
-                    var yOffset = index * (barHeight + barPadding);
+                for (index=0; index<series.length; index++) {
+                    yOffset = index * (barHeight + barPadding);
                     svg.append('g')
                         .attr('class', 'bar-stack')
                         .selectAll('rect')
@@ -163,7 +164,7 @@ function($window, d3) {
                         .attr('y', function(d, i) {
                             return i * (barHeight + barPadding) + barHeight/2 + 5;
                         })
-                        .attr('x', function(d, i) {
+                        .attr('x', function(d) {
                             return margin.left + leftLabelWidth + xScale(d) + totalBarWidth/4;
                         })
                         .text(function(d) {
