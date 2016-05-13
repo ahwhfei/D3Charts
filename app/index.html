@@ -16,6 +16,7 @@
     <!-- build:siteCSS styles/d3-charts.css -->
     <link rel="stylesheet" href="styles/directives/ctx-pie-chart.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-spline-chart.css" type="text/css" />
+    <link rel="stylesheet" href="styles/directives/ctx-bar-stack.css" type="text/css" />
     <!-- endbuild -->
 </head>
 <body ng-app="cwc.d3">
@@ -29,6 +30,62 @@
         </ul>
     <![endif]-->
     <div ctx-bar-chart bar-height="20" bar-padding="5" data="[{name: 'Greg', y: 98}, {name: 'Ari', y: 96}, {name: 'Q', y: 44}, {name: 'Loser', y: 48}]"></div>
+    <div ctx-bar-stack config="{
+                categories: ['Server1', 'Server22', 'Server333', 'Server4444'],
+                color: ['#A7C593', '#89B1BB'],
+                showTotal: true,
+                showLeftLabel: true,
+                leftLabelWidth: 80,
+                barPadding: 5,
+                barHeight: 30,
+                series: [
+                    {
+                        name: 'Free',
+                        data: [100, 200, 300, 400]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [100, 200, 300, 400]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-stack config="{
+                categories: ['Server1', 'Server2', 'Server3', 'Server4'],
+                color: ['#A7C593', '#89B1BB'],
+                showTotal: true,
+                series: [
+                    {
+                        name: 'Free',
+                        data: [100, 200, 270, 500]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [190, 200, 500, 40]
+                    },
+                    {
+                        name: 'Trail',
+                        data: [110, 201, 30, 410]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-stack config="{
+                categories: ['Server1', 'Server2', 'Server3', 'Server4', 'Server5'],
+                showTotal: false,
+                series: [
+                    {
+                        name: 'Free',
+                        data: [155, 200]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [100, 290]
+                    },
+                    {
+                        name: 'Trail',
+                        data: [160, 201]
+                    }
+                ]
+    }"></div>
     <div ctx-spline-chart config="{
                 xAxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -128,6 +185,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/modules/d3.js"></script>
     <script src="scripts/directives/ctx-bar-chart.js"></script>
+    <script src="scripts/directives/ctx-bar-stack.js"></script>
     <script src="scripts/directives/ctx-pie-chart.js"></script>
     <script src="scripts/directives/ctx-spline-chart.js"></script>
     <!-- endbuild -->
