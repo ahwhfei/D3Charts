@@ -12,7 +12,7 @@ function($window, d3) {
           onClick: '&'
         },
         link: function(scope, element) {
-            var margin = scope.config.margin || { left: 20, top: 20, right: 20, bottom: 20 },
+            var margin = scope.config.margin || { left: 0, right: 0 },
                 barHeight = scope.config.barHeight || 80,
                 barPadding = scope.config.barPadding || 5,
                 leftLabelWidth = scope.config.leftLabelWidth || 0,
@@ -30,7 +30,7 @@ function($window, d3) {
             };
 
             scope.$watch(function() {
-                return angular.element($window)[0].innerWidth;
+                return element[0].clientWidth;
             }, function() {
                 scope.render(scope.config);
             });
@@ -64,14 +64,18 @@ function($window, d3) {
 
             scope.render = function() {
                 svg.selectAll('*').remove();
+                var elementWidth = element[0].clientWidth;
+                if ( elementWidth === 0 || !scope.config || !scope.config.series) {
+                    return;
+                }
                 var series = scope.config.series,
                     total = { name: 'Total' },
                     index, yOffset, 
-                    width = d3.select(element[0])[0][0].offsetWidth - margin.left - leftLabelWidth - margin.right,
+                    width = elementWidth - margin.left - leftLabelWidth - margin.right - totalPadding - totalBarWidth,
                     height = scope.config.series[0].data.length * (barHeight + barPadding),
                     color = scope.config.color ? function(c) { return scope.config.color[c%scope.config.color.length]; } : d3.scale.category20(),
                     xScale = d3.scale.linear()
-                        .domain([0, maxSumOfSeries(series)+totalBarWidth])
+                        .domain([0, maxSumOfSeries(series)])
                         .range([0, width]);
 
                 total.data = sumOfSeries(series);
@@ -94,7 +98,6 @@ function($window, d3) {
                             for (var x=0; x<index; x++) {
                                 pos += series[x].data[i];
                             }
-                            console.log(pos);
                             return margin.left + leftLabelWidth + xScale(pos);
                         })
                         .attr('y', function(d, i) {
@@ -108,26 +111,28 @@ function($window, d3) {
                             return xScale(d);
                         });
 
-                    svg.append('g')
-                        .attr('class', 'bar-text')
-                        .selectAll('text')
-                        .data(series[index].data)
-                        .enter()
-                        .append('text')
-                        .attr('y', function(d, i) {
-                            return i * (barHeight + barPadding) + barHeight/2 + 5;
-                        })
-                        .attr('x', function(d, i) {
-                            var textPos = margin.left + leftLabelWidth + xScale(series[index].data[i]) - textWidth;
-                            for (var x=0; x<index; x++) {
-                                textPos += xScale(series[x].data[i]);
-                            }
-                            return textPos;
-                        })
-                        .text(function(d) {
-                            // ignore text when width too narrow
-                            return xScale(d) > minBarWidth ? d : '';
-                        });
+                    if (scope.config.showLabel) {
+                        svg.append('g')
+                            .attr('class', 'bar-text')
+                            .selectAll('text')
+                            .data(series[index].data)
+                            .enter()
+                            .append('text')
+                            .attr('y', function(d, i) {
+                                return i * (barHeight + barPadding) + barHeight/2 + 5;
+                            })
+                            .attr('x', function(d, i) {
+                                var textPos = margin.left + leftLabelWidth + xScale(series[index].data[i]) - textWidth;
+                                for (var x=0; x<index; x++) {
+                                    textPos += xScale(series[x].data[i]);
+                                }
+                                return textPos;
+                            })
+                            .text(function(d) {
+                                // ignore text when width too narrow
+                                return xScale(d) > minBarWidth ? d : '';
+                            });
+                    }
                 }
 
                 if (scope.config.showTotal) {
