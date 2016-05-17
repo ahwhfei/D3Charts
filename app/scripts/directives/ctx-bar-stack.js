@@ -19,7 +19,7 @@ function($window, d3) {
                 minBarWidth = 30,
                 totalBarWidth = 50,
                 textWidth = 30,
-                totalPadding = 5;
+                totalPadding = 4;
 
             var svg = d3.select(element[0])
                 .append('svg')
