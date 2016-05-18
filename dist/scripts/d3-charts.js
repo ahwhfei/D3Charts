@@ -9747,14 +9747,14 @@ function($window, d3) {
 
             scope.render = function() {
                 svg.selectAll('*').remove();
-                var elementWidth = element[0].clientWidth;
-                if ( elementWidth === 0 || !scope.config || !scope.config.series) {
+                var elementWidth = element[0].clientWidth,
+                    width = elementWidth - margin.left - leftLabelWidth - margin.right - totalPadding - totalBarWidth;
+                if (width <= 0 || !scope.config || !scope.config.series) {
                     return;
                 }
                 var series = scope.config.series,
                     total = { name: 'Total' },
-                    index, yOffset, 
-                    width = elementWidth - margin.left - leftLabelWidth - margin.right - totalPadding - totalBarWidth,
+                    index, yOffset,                 
                     height = scope.config.series[0].data.length * (barHeight + barPadding),
                     color = scope.config.color ? function(c) { return scope.config.color[c%scope.config.color.length]; } : d3.scale.category20(),
                     xScale = d3.scale.linear()
