@@ -51,6 +51,26 @@
                 ]
     }"></div>
     <div ctx-bar-stack config="{
+                categories: ['Server1', 'Server22', 'Server333', 'Server4444444444444444444444444444444'],
+                color: ['#A7C593', '#89B1BB'],
+                showTotal: true,
+                showLabel: true,
+                showLeftLabel: true,
+                leftLabelWidth: 80,
+                barPadding: 5,
+                barHeight: 30,
+                series: [
+                    {
+                        name: 'Free',
+                        data: [100, 200, 300, 400]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [100, 200, 300, 400]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-stack config="{
                 categories: ['Server1', 'Server2', 'Server3', 'Server4'],
                 color: ['#A7C593', '#89B1BB'],
                 showTotal: true,
