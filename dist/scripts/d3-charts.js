@@ -9728,6 +9728,19 @@ function($window, d3) {
                 return sum;
             };
 
+            function wrap(element, width, padding) {
+                element.each(function () {
+                    var self = d3.select(this),
+                        textLength = self.node().getComputedTextLength(),
+                        text = self.text();
+                    while (textLength > (width - 2 * padding) && text.length > 0) {
+                        text = text.slice(0, -1);
+                        self.text(text + '...');
+                        textLength = self.node().getComputedTextLength();
+                    }
+                });
+            }
+
             var maxSumOfSeries = function (series) {
                 return Math.max.apply(null, sumOfSeries(series));
             };
@@ -9858,9 +9871,11 @@ function($window, d3) {
                             return i * (barHeight + barPadding) + barHeight/2 + 5;
                         })
                         .attr('x', margin.left)
-                        .text(function(d) {
-                            return d;
-                        });
+                        .append('tspan')
+                        .text(function(d) { 
+                            return d; 
+                        })
+                        .call(wrap, leftLabelWidth, 0);
                 }
             };
         }
