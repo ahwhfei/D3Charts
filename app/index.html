@@ -52,21 +52,21 @@
     }"></div>
     <div ctx-bar-stack config="{
                 categories: ['Server1', 'Server22', 'Server333', 'Server4444444444444444444444444444444'],
-                color: ['#A7C593', '#89B1BB'],
                 showTotal: true,
                 showLabel: true,
                 showLeftLabel: true,
                 leftLabelWidth: 80,
                 barPadding: 5,
                 barHeight: 30,
+                border: 3,
                 series: [
                     {
                         name: 'Free',
-                        data: [100, 200, 300, 400]
+                        data: [140, 280, 90, 40]
                     },
                     {
                         name: 'Paid',
-                        data: [100, 200, 300, 400]
+                        data: [109, 800, 200, 600]
                     }
                 ]
     }"></div>
@@ -93,6 +93,7 @@
     <div ctx-bar-stack config="{
                 categories: ['Server1', 'Server2', 'Server3', 'Server4', 'Server5'],
                 showTotal: false,
+                border: 4,
                 series: [
                     {
                         name: 'Free',

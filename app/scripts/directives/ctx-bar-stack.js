@@ -16,10 +16,13 @@ function($window, d3) {
                 barHeight = scope.config.barHeight || 80,
                 barPadding = scope.config.barPadding || 5,
                 leftLabelWidth = scope.config.leftLabelWidth || 0,
-                minBarWidth = 30,
-                totalBarWidth = 50,
-                textWidth = 30,
-                totalPadding = 4;
+                minBarWidth = scope.config.minBarWidht || 30,
+                totalBarWidth = scope.config.totalBarWidth || 50,
+                textWidth = scope.config.textWidth || 30,
+                fontHeight = scope.config.fontHeight || 10,
+                border = scope.config.border || 0,
+                overlap = 1 + border, // may exist 1px gap in 2 bars, add extra overlap for remove border
+                totalPadding = (scope.config.totalPadding || 4) + overlap;
 
             var svg = d3.select(element[0])
                 .append('svg')
@@ -104,8 +107,8 @@ function($window, d3) {
                         .enter()
                         .append('rect')
                         .attr('height', barHeight)
-                        .attr('rx', 3)
-                        .attr('ry', 3)
+                        .attr('rx', border)
+                        .attr('ry', border)
                         .attr('x', function(d, i) {
                             var pos = 0;
                             for (var x=0; x<index; x++) {
@@ -121,7 +124,7 @@ function($window, d3) {
                         .transition()
                         .duration(500)
                         .attr('width', function(d) {
-                            return xScale(d);
+                            return xScale(d) + overlap; 
                         });
 
                     if (scope.config.showLabel) {
@@ -132,7 +135,7 @@ function($window, d3) {
                             .enter()
                             .append('text')
                             .attr('y', function(d, i) {
-                                return i * (barHeight + barPadding) + barHeight/2 + 5;
+                                return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
                             })
                             .attr('x', function(d, i) {
                                 var textPos = margin.left + leftLabelWidth + xScale(series[index].data[i]) - textWidth;
@@ -156,8 +159,8 @@ function($window, d3) {
                         .enter()
                         .append('rect')
                         .attr('height', barHeight)
-                        .attr('rx', 3)
-                        .attr('ry', 3)
+                        .attr('rx', border)
+                        .attr('ry', border)
                         .attr('x', function(d) {
                             return margin.left + leftLabelWidth + xScale(d) + totalPadding;
                         })
@@ -198,7 +201,7 @@ function($window, d3) {
                         .enter()
                         .append('text')
                         .attr('y', function(d, i) {
-                            return i * (barHeight + barPadding) + barHeight/2 + 5;
+                            return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
                         })
                         .attr('x', margin.left)
                         .append('tspan')
