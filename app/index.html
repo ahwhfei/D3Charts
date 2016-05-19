@@ -14,9 +14,10 @@
     <!-- build:siteCSS sandbox/styles.css -->
     <!-- endbuild -->
     <!-- build:siteCSS styles/d3-charts.css -->
+    <link rel="stylesheet" href="styles/directives/ctx-bar-chart.css" type="text/css" />
+    <link rel="stylesheet" href="styles/directives/ctx-bar-stack.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-pie-chart.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-spline-chart.css" type="text/css" />
-    <link rel="stylesheet" href="styles/directives/ctx-bar-stack.css" type="text/css" />
     <!-- endbuild -->
 </head>
 <body ng-app="cwc.d3">
@@ -29,7 +30,11 @@
             <li>Firefox (version 37 or Later)</li>
         </ul>
     <![endif]-->
-    <div ctx-bar-chart bar-height="20" bar-padding="5" data="[{name: 'Greg', y: 98}, {name: 'Ari', y: 96}, {name: 'Q', y: 44}, {name: 'Loser', y: 48}]"></div>
+    <div ctx-bar-chart bar-height="30" bar-padding="5"
+         data="[{month: '2015-01',count: 12}, {month: '2015-02',count: 25}, {month: '2015-03',count: 41},
+                {month: '2015-04',count: 50}, {month: '2015-05',count: 65}, {month: '2015-06',count: 85},
+                {month: '2015-07',count: 90}, {month: '2015-08',count: 100}, {month: '2015-09',count: 125},
+                {month: '2015-10',count: 138}, {month: '2015-11',count: 150}, {month: '2015-12',count: 178}]"></div>
     <div ctx-bar-stack config="{
                 categories: ['Server1', 'Server22', 'Server333', 'Server4444'],
                 color: ['#A7C593', '#89B1BB'],
