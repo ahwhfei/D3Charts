@@ -9688,7 +9688,7 @@ function($window, d3) {
                 leftLabelWidth = 0,
                 leftLabelPadding = scope.config.leftLabelPadding || 0,
                 maxLeftLabelWidth = scope.config.maxLeftLabelWidth || 240,
-                minBarWidth = scope.config.minBarWidht || 30,
+                minBarWidth = scope.config.minBarWidth || 30,
                 totalBarWidth = scope.config.totalBarWidth || 50,
                 textWidth = scope.config.textWidth || 30,
                 fontHeight = scope.config.fontHeight || 10,
@@ -9857,7 +9857,7 @@ function($window, d3) {
                         .attr('rx', border)
                         .attr('ry', border)
                         .attr('x', function(d) {
-                            return leftStartPosition + xScale(d) + totalPadding;
+                            return leftStartPosition + totalPadding + xScale(d);
                         })
                         .attr('y', function(d, i) {
                             return i * (barHeight + barPadding);
@@ -9878,13 +9878,14 @@ function($window, d3) {
                         .enter()
                         .append('text')
                         .attr('y', function(d, i) {
-                            return i * (barHeight + barPadding) + barHeight/2 + 5;
-                        })
-                        .attr('x', function(d) {
-                            return leftStartPosition + xScale(d) + totalBarWidth/4;
+                            return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
                         })
                         .text(function(d) {
                             return d;
+                        })
+                        .attr('x', function(d) {
+                            var textLength = d3.select(this).node().getComputedTextLength();
+                            return leftStartPosition + totalPadding + xScale(d) + (totalBarWidth-textLength)/2;
                         });
                 }
             };
