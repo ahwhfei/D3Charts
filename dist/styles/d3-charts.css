@@ -3,6 +3,7 @@
 }
 .bar-text {
   fill: #fff;
+  text-anchor: end;
 }
 .bar-text-total {
   fill: #fff;
