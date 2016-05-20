@@ -18,7 +18,7 @@ function($window, d3) {
                 leftLabelWidth = 0,
                 leftLabelPadding = scope.config.leftLabelPadding || 0,
                 maxLeftLabelWidth = scope.config.maxLeftLabelWidth || 240,
-                minBarWidth = scope.config.minBarWidht || 30,
+                minBarWidth = scope.config.minBarWidth || 30,
                 totalBarWidth = scope.config.totalBarWidth || 50,
                 textWidth = scope.config.textWidth || 30,
                 fontHeight = scope.config.fontHeight || 10,
