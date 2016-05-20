@@ -15,13 +15,15 @@ function($window, d3) {
             var margin = scope.config.margin || { left: 0, right: 0 },
                 barHeight = scope.config.barHeight || 80,
                 barPadding = scope.config.barPadding || 5,
+                barLabelPadding = scope.config.barLabelPadding || 8,
                 leftLabelWidth = scope.config.leftLabelWidth || 0,
-                minBarWidth = scope.config.minBarWidht || 30,
+                leftLabelPadding = scope.config.leftLabelPadding || 0,
+                maxLeftLabelWidth = scope.config.maxLeftLabelWidth || 240,
+                minBarWidth = scope.config.minBarWidth || 30,
                 totalBarWidth = scope.config.totalBarWidth || 50,
-                textWidth = scope.config.textWidth || 30,
                 fontHeight = scope.config.fontHeight || 10,
                 border = scope.config.border || 0,
-                overlap = 1 + border, // may exist 1px gap in 2 bars, add extra overlap for remove border
+                overlap = 1, // may exist 1px gap between 2 bars
                 totalPadding = (scope.config.totalPadding || 4) + overlap;
 
             var svg = d3.select(element[0])
@@ -66,12 +68,15 @@ function($window, d3) {
                     var self = d3.select(this),
                         textLength = self.node().getComputedTextLength(),
                         text = self.text();
+                    leftLabelWidth = (leftLabelWidth < textLength) ? textLength : leftLabelWidth;
                     while (textLength > (width - 2 * padding) && text.length > 0) {
                         text = text.slice(0, -1);
                         self.text(text + '...');
                         textLength = self.node().getComputedTextLength();
                     }
                 });
+
+                leftLabelWidth = (leftLabelWidth > maxLeftLabelWidth) ? maxLeftLabelWidth : leftLabelWidth;
             }
 
             var maxSumOfSeries = function (series) {
@@ -80,8 +85,27 @@ function($window, d3) {
 
             scope.render = function() {
                 svg.selectAll('*').remove();
+
+                if (scope.config.showLeftLabel) {
+                    svg.append('g')
+                        .attr('class', 'bar-left-label')
+                        .selectAll('text')
+                        .data(scope.config.categories)
+                        .enter()
+                        .append('text')
+                        .attr('y', function(d, i) {
+                            return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
+                        })
+                        .attr('x', margin.left)
+                        .append('tspan')
+                        .text(function(d) { 
+                            return d; 
+                        })
+                        .call(wrap, maxLeftLabelWidth, 0);
+                }
+
                 var elementWidth = element[0].clientWidth,
-                    width = elementWidth - margin.left - leftLabelWidth - margin.right - totalPadding - totalBarWidth;
+                    width = elementWidth - margin.left - leftLabelWidth - leftLabelPadding - margin.right - totalPadding - totalBarWidth;
                 if (width <= 0 || !scope.config || !scope.config.series) {
                     return;
                 }
@@ -92,7 +116,8 @@ function($window, d3) {
                     color = scope.config.color ? function(c) { return scope.config.color[c%scope.config.color.length]; } : d3.scale.category20(),
                     xScale = d3.scale.linear()
                         .domain([0, maxSumOfSeries(series)])
-                        .range([0, width]);
+                        .range([0, width]),
+                    leftStartPosition = margin.left + leftLabelWidth + leftLabelPadding;
 
                 total.data = sumOfSeries(series);
 
@@ -114,7 +139,7 @@ function($window, d3) {
                             for (var x=0; x<index; x++) {
                                 pos += series[x].data[i];
                             }
-                            return margin.left + leftLabelWidth + xScale(pos);
+                            return leftStartPosition + xScale(pos);
                         })
                         .attr('y', function(d, i) {
                             return i * (barHeight + barPadding);
@@ -138,7 +163,7 @@ function($window, d3) {
                                 return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
                             })
                             .attr('x', function(d, i) {
-                                var textPos = margin.left + leftLabelWidth + xScale(series[index].data[i]) - textWidth;
+                                var textPos = leftStartPosition + xScale(series[index].data[i]) - barLabelPadding;
                                 for (var x=0; x<index; x++) {
                                     textPos += xScale(series[x].data[i]);
                                 }
@@ -162,7 +187,7 @@ function($window, d3) {
                         .attr('rx', border)
                         .attr('ry', border)
                         .attr('x', function(d) {
-                            return margin.left + leftLabelWidth + xScale(d) + totalPadding;
+                            return leftStartPosition + totalPadding + xScale(d);
                         })
                         .attr('y', function(d, i) {
                             return i * (barHeight + barPadding);
@@ -183,32 +208,15 @@ function($window, d3) {
                         .enter()
                         .append('text')
                         .attr('y', function(d, i) {
-                            return i * (barHeight + barPadding) + barHeight/2 + 5;
-                        })
-                        .attr('x', function(d) {
-                            return margin.left + leftLabelWidth + xScale(d) + totalBarWidth/4;
+                            return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
                         })
                         .text(function(d) {
                             return d;
+                        })
+                        .attr('x', function(d) {
+                            var textLength = d3.select(this).node().getComputedTextLength();
+                            return leftStartPosition + totalPadding + xScale(d) + (totalBarWidth-textLength)/2;
                         });
-                }
-
-                if (scope.config.showLeftLabel && scope.config.leftLabelWidth > 0) {
-                    svg.append('g')
-                        .attr('class', 'bar-left-label')
-                        .selectAll('text')
-                        .data(scope.config.categories)
-                        .enter()
-                        .append('text')
-                        .attr('y', function(d, i) {
-                            return i * (barHeight + barPadding) + barHeight/2 + fontHeight/2;
-                        })
-                        .attr('x', margin.left)
-                        .append('tspan')
-                        .text(function(d) { 
-                            return d; 
-                        })
-                        .call(wrap, leftLabelWidth, 0);
                 }
             };
         }
