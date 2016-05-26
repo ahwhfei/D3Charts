@@ -15,6 +15,7 @@
     <!-- endbuild -->
     <!-- build:siteCSS styles/d3-charts.css -->
     <link rel="stylesheet" href="styles/directives/ctx-bar-chart.css" type="text/css" />
+    <link rel="stylesheet" href="styles/directives/ctx-bar-column.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-bar-stack.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-pie-chart.css" type="text/css" />
     <link rel="stylesheet" href="styles/directives/ctx-spline-chart.css" type="text/css" />
@@ -30,6 +31,126 @@
             <li>Firefox (version 37 or Later)</li>
         </ul>
     <![endif]-->
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444x'],
+        series: [90, 210, 320, 1390]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        categories: ['A', 'A', 'A', 'A'],
+        series: [90, 210, 320, 1390]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444xx'],
+        series: [900, 290, 520, 190]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444xxx'],
+        series: [
+                    {
+                        name: 'Free',
+                        data: [100, 200, 300, 400]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [100, 200, 300, 400]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444xxxxx'],
+        series: [
+                    {
+                        name: 'Free',
+                        data: [510, 120, 340, 460]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [804, 314, 435, 872]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        margin: { left: 40, top: 0, right: 40, bottom: 100 },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444xxxxxx', 'Server5555', 'Server6', 'Server7', 'Server8', 'Server9', 'Server10', 'Server11', 'Server12', 'Server13', 'Server14', 'Server15', 'Server16', 'Server17', 'Server18', 'Server19', 'Server20', 'Server21', 'Server22'],
+        series: [
+                    {
+                        name: 'Free',
+                        data: [510, 120, 340, 460, 23, 45, 87, 23, 434, 541, 99]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [804, 314, 435, 872, 345, 992, 234, 457, 234, 212, 88]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        margin: { left: 40, top: 0, right: 40, bottom: 100 },
+        categories: ['Server1', 'Server22', 'Server333', 'Server4444', 'Server5555', 'Server6', 'Server7', 'Server8', 'Server9', 'Server10', 'Server11', 'Server12', 'Server13', 'Server14', 'Server15', 'Server16', 'Server17', 'Server18', 'Server19', 'Server20', 'Server21', 'Server22'],
+        series: [
+                    {
+                        name: 'Free',
+                        data: [510, 120, 340, 460, 23, 45, 87, 23, 434, 541, 99]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [804, 314, 435, 872, 345, 992, 234, 457, 234, 212, 88]
+                    },
+                    {
+                        name: 'Unpaid',
+                        data: [804, 314, 435, 872, 345, 992, 234, 457, 234, 212, 88]
+                    }
+                ]
+    }"></div>
+    <div ctx-bar-column config="{
+        yAxis: {
+            title: 'Number of License Server',
+            padding: -10
+        },
+        margin: { left: 40, top: 0, right: 40, bottom: 30 },
+        categories: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'K'],
+        series: [
+                    {
+                        name: 'Free',
+                        data: [510, 120, 340, 460, 23, 45, 87, 23, 434, 541, 99]
+                    },
+                    {
+                        name: 'Paid',
+                        data: [804, 314, 435, 872, 345, 992, 234, 457, 234, 212, 88]
+                    },
+                    {
+                        name: 'Unpaid',
+                        data: [804, 314, 435, 872, 345, 992, 234, 457, 234, 212, 88]
+                    }
+                ]
+    }"></div>
     <div ctx-bar-chart bar-height="30" bar-padding="5"
          data="[{month: '2015-01',count: 12}, {month: '2015-02',count: 25}, {month: '2015-03',count: 41},
                 {month: '2015-04',count: 50}, {month: '2015-05',count: 65}, {month: '2015-06',count: 85},
@@ -213,6 +334,7 @@
     <script src="scripts/app.js"></script>
     <script src="scripts/modules/d3.js"></script>
     <script src="scripts/directives/ctx-bar-chart.js"></script>
+    <script src="scripts/directives/ctx-bar-column.js"></script>
     <script src="scripts/directives/ctx-bar-stack.js"></script>
     <script src="scripts/directives/ctx-pie-chart.js"></script>
     <script src="scripts/directives/ctx-spline-chart.js"></script>
