@@ -37,6 +37,10 @@
   fill: #fff;
 }
 
+.line-svg {
+  width: 100%;
+  background: #ffffff;
+}
 .line-axis path {
   stroke-width: 0;
   fill: none;

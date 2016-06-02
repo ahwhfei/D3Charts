@@ -9938,13 +9938,19 @@ angular.module('cwc.d3')
             },
             link: function(scope, element, attrs) {
                 var height = parseInt(attrs.height) || element[0].clientHeight || 365;
-                var margin = {left: 30, top: 16, right: 30, bottom: 36};
+                var margin_top = parseInt(attrs.margin_top) || 16;
+                var margin_right = parseInt(attrs.margin_right) || 30;
+                var margin_bottom = parseInt(attrs.margin_bottom) || 36;
+                var margin_left = parseInt(attrs.margin_left) || 30;
+                var grad_color = scope.config.grad_color || [
+                    {offset: '1%', color: '#2484c6', opacity: 0.2},
+                    {offset: '99%', color: '#2484c6', opacity: 0}
+                ];
 
                 var svg = d3.select(element[0])
                     .append('svg')
-                    .style('width', '100%')
                     .style('height', height)
-                    .style('background', '#ffffff');
+                    .attr('class', 'line-svg');
 
                 $window.onresize = function() {
                     scope.$apply();
@@ -9969,11 +9975,11 @@ angular.module('cwc.d3')
 
                     var data = scope.config.series.data,
                         width = element[0].clientWidth,
-                        svgWidth = width - margin.left - margin.right,
-                        svgHeight = height - margin.top - margin.bottom;
+                        svgWidth = width - margin_left - margin_right,
+                        svgHeight = height - margin_top - margin_bottom;
 
                     var group = svg.append('g')
-                        .attr('transform', 'translate(' + margin.left +', ' + margin.top + ')');
+                        .attr('transform', 'translate(' + margin_left +', ' + margin_top + ')');
 
                     var tooltip = d3.select('body')
                         .append('div')
@@ -10014,10 +10020,7 @@ angular.module('cwc.d3')
                         .attr('x1', 0).attr('y1', 0)
                         .attr('x2', 0).attr('y2', svgHeight)
                         .selectAll('stop')
-                        .data([
-                            {offset: '1%', color: '#2484c6', opacity: 0.2},
-                            {offset: '99%', color: '#2484c6', opacity: 0}
-                        ])
+                        .data(grad_color)
                         .enter().append('stop')
                         .attr('offset', function(d) { return d.offset; })
                         .attr('stop-color', function(d) { return d.color; })
@@ -10034,7 +10037,6 @@ angular.module('cwc.d3')
                         .y(function(d) { return yScale(d); });
 
                     var linesGroup = group.append('g')
-                        .attr('transform', 'translate(' + 0 +', ' + 0 + ')')
                         .attr('class', 'line-line');
 
                     linesGroup.append('path')
