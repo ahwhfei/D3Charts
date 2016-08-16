@@ -10175,8 +10175,8 @@ angular.module('cwc.d3')
 
                 var svg = d3.select(element[0])
                     .append('svg')
-                    .style('height', height)
-                    .attr('class', 'line-svg');
+                    .attr('class', 'line-svg')
+                    .attr({height: height});
 
                 $window.onresize = function() {
                     scope.$apply();
