@@ -10231,11 +10231,15 @@ angular.module('cwc.d3')
                         .tickPadding(15);
 
                     // Add the chart title
-                    group.append('text')
-                        .attr('x', (svgWidth / 2))             
-                        .attr('y', -10) 
-                        .text(title)
-                        .attr('class', 'line-title');
+                    group.append('foreignObject')
+                        .attr('x', 0)             
+                        .attr('y', -title_top) 
+                        .attr('width', svgWidth)
+                        .attr('height', title_top)
+                        .attr('class', 'line-title')
+                        .append('xhtml')
+                        .html('<div style="text-align: center; white-space: nowrap; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; overflow: hidden;">' + title + '</div>')
+                        .attr('title', title);
 
                     group.append('g')
                         .attr('class', 'line-axis')
