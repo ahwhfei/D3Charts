@@ -46,13 +46,15 @@ angular.module('cwc.d3')
                         return;
                     }
 
-                    var data = scope.config.series.data,
+                    var title = scope.config.series.title || '',
+                        title_top = title ? 25 : 0,
+                        data = scope.config.series.data,
                         width = element[0].clientWidth,
                         svgWidth = width - margin_left - margin_right,
-                        svgHeight = height - margin_top - margin_bottom;
+                        svgHeight = height - margin_top - margin_bottom - title_top;
 
                     var group = svg.append('g')
-                        .attr('transform', 'translate(' + margin_left +', ' + margin_top + ')');
+                        .attr('transform', 'translate(' + margin_left +', ' + (margin_top + title_top) + ')');
 
                     var tooltip = d3.select('body')
                         .append('div')
@@ -74,6 +76,17 @@ angular.module('cwc.d3')
                         .innerTickSize(-svgHeight)
                         .outerTickSize(0)
                         .tickPadding(15);
+
+                    // Add the chart title
+                    // group.append('foreignObject')
+                    //     .attr('x', 0)             
+                    //     .attr('y', -title_top) 
+                    //     .attr('width', svgWidth)
+                    //     .attr('height', title_top)
+                    //     .attr('class', 'line-title')
+                    //     .append('xhtml')
+                    //     .html('<div style="text-align: center; white-space: nowrap; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis; text-overflow: ellipsis; overflow: hidden;">' + title + '</div>')
+                    //     .attr('title', title);
 
                     group.append('g')
                         .attr('class', 'line-axis')
